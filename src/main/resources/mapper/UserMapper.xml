@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.User" >
+    <id column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="u_name" property="uName" jdbcType="VARCHAR" />
+    <result column="u_pass" property="uPass" jdbcType="VARCHAR" />
+    <result column="u_phone" property="uPhone" jdbcType="VARCHAR" />
+    <result column="u_level" property="uLevel" jdbcType="INTEGER" />
+    <result column="u_loc" property="uLoc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u_id, u_name, u_pass, u_phone, u_level, u_loc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from s_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from s_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.User" >
+    insert into s_user (u_id, u_name, u_pass, 
+      u_phone, u_level, u_loc
+      )
+    values (#{uId,jdbcType=INTEGER}, #{uName,jdbcType=VARCHAR}, #{uPass,jdbcType=VARCHAR}, 
+      #{uPhone,jdbcType=VARCHAR}, #{uLevel,jdbcType=INTEGER}, #{uLoc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.User" >
+    insert into s_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="uName != null" >
+        u_name,
+      </if>
+      <if test="uPass != null" >
+        u_pass,
+      </if>
+      <if test="uPhone != null" >
+        u_phone,
+      </if>
+      <if test="uLevel != null" >
+        u_level,
+      </if>
+      <if test="uLoc != null" >
+        u_loc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uPass != null" >
+        #{uPass,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null" >
+        #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uLevel != null" >
+        #{uLevel,jdbcType=INTEGER},
+      </if>
+      <if test="uLoc != null" >
+        #{uLoc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.User" >
+    update s_user
+    <set >
+      <if test="uName != null" >
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uPass != null" >
+        u_pass = #{uPass,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null" >
+        u_phone = #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uLevel != null" >
+        u_level = #{uLevel,jdbcType=INTEGER},
+      </if>
+      <if test="uLoc != null" >
+        u_loc = #{uLoc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.User">
+    update s_user
+    set u_name = #{uName,jdbcType=VARCHAR},
+      u_pass = #{uPass,jdbcType=VARCHAR},
+      u_phone = #{uPhone,jdbcType=VARCHAR},
+      u_level = #{uLevel,jdbcType=INTEGER},
+      u_loc = #{uLoc,jdbcType=VARCHAR}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <select id="checkUserLogin"  resultMap="BaseResultMap">
+  		select 
+  		<include refid="Base_Column_List" />
+  		from s_user 
+  		where
+	        u_name = #{uName,jdbcType=VARCHAR} and
+	        u_pass = #{uPass,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAll"  resultMap="BaseResultMap" parameterType="map">
+  		select 
+  		<include refid="Base_Column_List" />
+  		from s_user where 1=1
+  		<if test="userName != null and userName !=''">
+  		and u_name like CONCAT('%',#{userName},'%')
+  		</if>
+  </select>
+</mapper>

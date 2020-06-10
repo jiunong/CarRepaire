@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.PartMapper" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.Part" >
+    <id column="Part_p_id" property="partId" jdbcType="VARCHAR" />
+    <result column="Part_p_name" property="partName" jdbcType="VARCHAR" />
+    <result column="Part_p_price" property="partPrice" jdbcType="DOUBLE" />
+    <result column="Part_p_num" property="partNum" jdbcType="INTEGER" />
+    <result column="Part_warning" property="warning" jdbcType="INTEGER" />
+    <result column="Part_lastBuyDate" property="lastbuydate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Part.p_id as Part_p_id, Part.p_name as Part_p_name, Part.p_price as Part_p_price, 
+    Part.p_num as Part_p_num, Part.warning as Part_warning, Part.lastBuyDate as Part_lastBuyDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from s_part Part
+    where Part.p_id = #{partId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from s_part
+    where p_id = #{partId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.Part" >
+    insert into s_part (p_id, p_name, p_price, 
+      p_num, lastBuyDate)
+    values (#{partId,jdbcType=VARCHAR}, #{partName,jdbcType=VARCHAR}, #{partPrice,jdbcType=DOUBLE}, 
+      #{partNum,jdbcType=INTEGER}, #{lastbuydate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.Part" >
+    insert into s_part
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        p_id,
+      </if>
+      <if test="partName != null" >
+        p_name,
+      </if>
+      <if test="partPrice != null" >
+        p_price,
+      </if>
+      <if test="partNum != null" >
+        p_num,
+      </if>
+       <if test="warning != null" >
+        warning,
+      </if>
+      <if test="lastbuydate != null" >
+        lastBuyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        #{partId,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partPrice != null" >
+        #{partPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="partNum != null" >
+        #{partNum,jdbcType=INTEGER},
+      </if>
+       <if test="warning != null" >
+        #{warning,jdbcType=INTEGER},
+      </if>
+      <if test="lastbuydate != null" >
+        #{lastbuydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.Part" >
+    update s_part
+    <set >
+      <if test="partName != null" >
+        p_name = #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partPrice != null" >
+        p_price = #{partPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="partNum != null" >
+        p_num = #{partNum,jdbcType=INTEGER},
+      </if>
+      <if test="warning != null" >
+        warning = #{warning,jdbcType=INTEGER},
+      </if>
+      <if test="lastbuydate != null" >
+        lastBuyDate = #{lastbuydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where p_id = #{partId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.Part" >
+    update s_part
+    set p_name = #{partName,jdbcType=VARCHAR},
+      p_price = #{partPrice,jdbcType=DOUBLE},
+      p_num = #{partNum,jdbcType=INTEGER},
+      warning = #{warning,jdbcType=INTEGER},
+      lastBuyDate = #{lastbuydate,jdbcType=TIMESTAMP}
+    where p_id = #{partId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.chillax.bean.Part">
+   select 
+    <include refid="Base_Column_List" />
+    from s_part  as Part where 1=1 
+    <if test="partId !=null and partId != ''">
+    	and p_id like concat("%",#{partId},"%")
+    </if>
+  </select>
+</mapper>

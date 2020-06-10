@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.WorkerDao" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.Worker" >
+    <id column="w_id" property="wId" jdbcType="VARCHAR" />
+    <result column="w_name" property="wName" jdbcType="VARCHAR" />
+    <result column="w_phone" property="wPhone" jdbcType="VARCHAR" />
+    <result column="w_salary" property="wSalary" jdbcType="DOUBLE" />
+    <result column="w_idcard" property="wIdcard" jdbcType="VARCHAR" />
+    <result column="w_location" property="wLocation" jdbcType="VARCHAR" />
+    <result column="w_age" property="wAge" jdbcType="INTEGER" />
+    <result column="w_sex" property="wSex" jdbcType="INTEGER" />
+    <result column="w_level" property="wLevel" jdbcType="INTEGER" />
+    <result column="w_state" property="wState" jdbcType="INTEGER" />
+     <result column="w_birthday" property="wBirthday" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    w_id, w_name, w_phone, w_salary, w_idcard, w_location, w_age, w_sex, w_level, w_state,w_birthday
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from s_worker
+    where w_id = #{wId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from s_worker
+    where w_id = #{wId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.Worker" >
+    insert into s_worker (w_id, w_name, w_phone, 
+      w_salary, w_idcard, w_location, 
+      w_age, w_sex, w_level, 
+      w_state,w_birthday)
+    values (#{wId,jdbcType=VARCHAR}, #{wName,jdbcType=VARCHAR}, #{wPhone,jdbcType=VARCHAR}, 
+      #{wSalary,jdbcType=DOUBLE}, #{wIdcard,jdbcType=VARCHAR}, #{wLocation,jdbcType=VARCHAR}, 
+      #{wAge,jdbcType=INTEGER}, #{wSex,jdbcType=INTEGER}, #{wLevel,jdbcType=INTEGER}, 
+      #{wState,jdbcType=INTEGER}),#{wBirthday}
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.Worker" >
+    insert into s_worker
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wId != null" >
+        w_id,
+      </if>
+      <if test="wName != null" >
+        w_name,
+      </if>
+      <if test="wPhone != null" >
+        w_phone,
+      </if>
+      <if test="wSalary != null" >
+        w_salary,
+      </if>
+      <if test="wIdcard != null" >
+        w_idcard,
+      </if>
+      <if test="wLocation != null" >
+        w_location,
+      </if>
+      <if test="wAge != null" >
+        w_age,
+      </if>
+      <if test="wSex != null" >
+        w_sex,
+      </if>
+      <if test="wLevel != null" >
+        w_level,
+      </if>
+      <if test="wState != null" >
+        w_state,
+      </if>
+        <if test="wBirthday != null" >
+        w_birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wId != null" >
+        #{wId,jdbcType=VARCHAR},
+      </if>
+      <if test="wName != null" >
+        #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wPhone != null" >
+        #{wPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wSalary != null" >
+        #{wSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="wIdcard != null" >
+        #{wIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="wLocation != null" >
+        #{wLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="wAge != null" >
+        #{wAge,jdbcType=INTEGER},
+      </if>
+      <if test="wSex != null" >
+        #{wSex,jdbcType=INTEGER},
+      </if>
+      <if test="wLevel != null" >
+        #{wLevel,jdbcType=INTEGER},
+      </if>
+      <if test="wState != null" >
+        #{wState,jdbcType=INTEGER},
+      </if>
+      <if test="wBirthday != null" >
+        #{wBirthday,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.Worker" >
+    update s_worker
+    <set >
+      <if test="wName != null" >
+        w_name = #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wPhone != null" >
+        w_phone = #{wPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wSalary != null" >
+        w_salary = #{wSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="wIdcard != null" >
+        w_idcard = #{wIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="wLocation != null" >
+        w_location = #{wLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="wAge != null" >
+        w_age = #{wAge,jdbcType=INTEGER},
+      </if>
+      <if test="wSex != null" >
+        w_sex = #{wSex,jdbcType=INTEGER},
+      </if>
+      <if test="wLevel != null" >
+        w_level = #{wLevel,jdbcType=INTEGER},
+      </if>
+      <if test="wState != null" >
+        w_state = #{wState,jdbcType=INTEGER},
+      </if>
+       <if test="wState != null" >
+        w_birthday= #{wBirthday,jdbcType=INTEGER},
+      </if>
+    </set>
+    where w_id = #{wId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.Worker" >
+    update s_worker
+    set w_name = #{wName,jdbcType=VARCHAR},
+      w_phone = #{wPhone,jdbcType=VARCHAR},
+      w_salary = #{wSalary,jdbcType=DOUBLE},
+      w_idcard = #{wIdcard,jdbcType=VARCHAR},
+      w_location = #{wLocation,jdbcType=VARCHAR},
+      w_age = #{wAge,jdbcType=INTEGER},
+      w_sex = #{wSex,jdbcType=INTEGER},
+      w_level = #{wLevel,jdbcType=INTEGER},
+      w_state = #{wState,jdbcType=INTEGER}
+    where w_id = #{wId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectWorkersByAttr"  resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from s_worker
+    where 1=1 
+    <trim suffixOverrides=",">
+	    <if test="wName != null and '' != wName">
+	   		 and  w_name  LIKE  concat('%',#{wName},'%') ,
+	   	</if>
+	   	<if test="wState != null and '' != wState">
+	   		 and  w_state = #{wState},
+	   	</if>
+   	</trim>
+  </select>
+  
+  <select id="selectWork" resultType="map" parameterType="map">
+  select a.w_name name,count(a.w_name) value from v_orderworker a 
+	left JOIN s_order b 
+	on a.o_id=b.o_id 
+		where b.o_state=2 and 
+		date_format(b.endTime,'%Y年-%m月')=#{date} group by a.w_name 
+union all		
+		select "已拒绝订单",count(*) from s_order 
+			where o_state = 2 and s_id is null and 
+			date_format(endTime,'%Y年-%m月')=#{date}
+	order by value desc
+  </select>
+</mapper>

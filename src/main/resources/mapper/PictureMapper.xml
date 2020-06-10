@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.PictureMapper" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.Picture" >
+    <id column="p_id" property="pictureId" jdbcType="VARCHAR" />
+    <result column="o_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="p_desc" property="picDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, o_id, pic_url, p_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where p_id = #{pictureId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from picture
+    where p_id = #{pictureId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.Picture" >
+    insert into picture (p_id, o_id, pic_url, 
+      p_desc)
+    values (#{pictureId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, 
+      #{picDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.Picture" >
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pictureId != null" >
+        p_id,
+      </if>
+      <if test="orderId != null" >
+        o_id,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="picDesc != null" >
+        p_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pictureId != null" >
+        #{pictureId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picDesc != null" >
+        #{picDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.Picture" >
+    update picture
+    <set >
+      <if test="orderId != null" >
+        o_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picDesc != null" >
+        p_desc = #{picDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_id = #{pictureId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.Picture" >
+    update picture
+    set o_id = #{orderId,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      p_desc = #{picDesc,jdbcType=VARCHAR}
+    where p_id = #{pictureId,jdbcType=VARCHAR}
+  </update>
+</mapper>

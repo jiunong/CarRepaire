@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chillax.dao.SStationDao">
+  <resultMap id="BaseResultMap" type="com.chillax.bean.SStation">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_state" jdbcType="VARCHAR" property="sState" />
+    <result column="s_type" jdbcType="VARCHAR" property="sType" />
+    <result column="beginTime" jdbcType="TIMESTAMP" property="begintime" />
+    <result column="scrapTime" jdbcType="TIMESTAMP" property="scraptime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, s_state, s_type, beginTime, scrapTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_station
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_station
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.SStation">
+    insert into s_station (s_id, s_state, s_type, 
+      beginTime, scrapTime)
+    values (#{sId,jdbcType=INTEGER}, #{sState,jdbcType=VARCHAR}, #{sType,jdbcType=VARCHAR}, 
+      #{begintime,jdbcType=TIMESTAMP}, #{scraptime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.SStation">
+    insert into s_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="sState != null">
+        s_state,
+      </if>
+      <if test="sType != null">
+        s_type,
+      </if>
+      <if test="begintime != null">
+        beginTime,
+      </if>
+      <if test="scraptime != null">
+        scrapTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sState != null">
+        #{sState,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scraptime != null">
+        #{scraptime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.SStation">
+    update s_station
+    <set>
+      <if test="sState != null">
+        s_state = #{sState,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        s_type = #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        beginTime = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scraptime != null">
+        scrapTime = #{scraptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.SStation">
+    update s_station
+    set s_state = #{sState,jdbcType=VARCHAR},
+      s_type = #{sType,jdbcType=VARCHAR},
+      beginTime = #{begintime,jdbcType=TIMESTAMP},
+      scrapTime = #{scraptime,jdbcType=TIMESTAMP}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="map">
+  		select <include refid="Base_Column_List"></include> 
+  		from s_station
+  		<where>
+  			<trim suffixOverrides=",">
+  				<if test="s_state != null">
+  					s_state=#{s_state},
+  				</if>
+  			</trim>
+  		</where>
+  </select>
+</mapper>

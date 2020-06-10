@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.Order" >
+    <id column="o_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="c_id" property="carId" jdbcType="VARCHAR" />
+    <result column="s_id" property="stationId" jdbcType="INTEGER" />
+    <result column="o_describe" property="oDescribe" jdbcType="VARCHAR" />
+    <result column="o_state" property="oState" jdbcType="VARCHAR" />
+    <result column="orderTime" property="ordertime" jdbcType="TIMESTAMP" />
+    <result column="arriveTime" property="arriveTime" jdbcType="TIMESTAMP" />
+    <result column="beginTime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="imgUrls" property="imgUrls" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Order.o_id as  o_id, Order.c_id as  c_id, Order.s_id as  s_id, Order.o_describe as  o_describe, 
+    Order.o_state as  o_state, Order.orderTime as  orderTime, Order.arriveTime as  arriveTime, Order.beginTime as  beginTime, 
+    Order.endTime as  endTime,Order.remark as  remark, Order.imgUrls as  imgUrls,
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+  *
+    from s_order 
+    where o_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from s_order
+    where o_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chillax.bean.Order" >
+    insert into s_order (o_id, u_id, s_id, 
+      o_describe, o_state, orderTime, 
+      beginTime, endTime)
+    values (#{orderId,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR}, #{stationId,jdbcType=INTEGER}, 
+      #{oDescribe,jdbcType=VARCHAR}, #{oState,jdbcType=VARCHAR}, #{ordertime,jdbcType=TIMESTAMP}, 
+      #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.Order" >
+    insert into s_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        o_id,
+      </if>
+      <if test="carId != null" >
+        c_id,
+      </if>
+      <if test="stationId != null" >
+        s_id,
+      </if>
+      <if test="oDescribe != null" >
+        o_describe,
+      </if>
+      <if test="oState != null" >
+        o_state,
+      </if>
+      <if test="ordertime != null" >
+        orderTime,
+      </if>
+       <if test="arriveTime != null" >
+        arriveTime,
+      </if>
+      <if test="begintime != null" >
+        beginTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="remark != null" >
+        endTime,
+      </if>
+      <if test="imgUrls != null" >
+        imgUrls,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="oDescribe != null" >
+        #{oDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="oState != null" >
+        #{oState,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="arriveTime != null" >
+        #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrls!= null" >
+        #{imgUrls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chillax.bean.Order" >
+    update s_order
+    <set >
+      <if test="carId != null" >
+        c_id = #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationId != null" >
+        s_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="oDescribe != null" >
+        o_describe = #{oDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="oState != null" >
+        o_state = #{oState,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null" >
+        orderTime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="arriveTime != null" >
+        arriveTime = #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        beginTime = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrls != null" >
+        imgUrls = #{imgUrls,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where o_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chillax.bean.Order" >
+    update s_order
+    set c_id = #{carId,jdbcType=VARCHAR},
+      s_id = #{stationId,jdbcType=INTEGER},
+      o_describe = #{oDescribe,jdbcType=VARCHAR},
+      o_state = #{oState,jdbcType=VARCHAR},
+      orderTime = #{ordertime,jdbcType=TIMESTAMP},
+      arriveTime = #{arriveTime,jdbcType=TIMESTAMP},
+      beginTime = #{begintime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      imgUrls = #{imgUrls,jdbcType=VARCHAR}
+    where o_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectOrderByAttr" resultType="map" parameterType="map">
+   		select * from v_order 
+   	<where>	 
+   		<trim suffixOverrides=",">
+	   		<if test="state != null">
+		   		o_state=#{state},
+	   		</if>
+	   		<if test="orderId != null">
+		   		o_id=#{orderId},
+	   		</if>
+	   		<if test="userId != null">
+		   		u_id=#{userId},
+	   		</if>
+   		</trim>
+   	</where>
+   </select>
+</mapper>

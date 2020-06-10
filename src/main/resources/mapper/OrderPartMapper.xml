@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.OrderPartMapper" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.OrderPart" >
+    <result column="o_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="p_id" property="partid" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.chillax.bean.OrderPart" >
+    insert into order_part (o_id, p_id, number
+      )
+    values (#{orderId,jdbcType=VARCHAR}, #{partid,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.OrderPart" >
+    insert into order_part
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        o_id,
+      </if>
+      <if test="partid != null" >
+        p_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="partid != null" >
+        #{partid,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+    <select id="selectByOrderId"  resultType="map">
+  	select * from v_orderpart where o_id=#{orderId}
+  </select>
+</mapper>

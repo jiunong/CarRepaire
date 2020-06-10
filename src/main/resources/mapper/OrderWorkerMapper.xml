@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chillax.dao.OrderWorkerMapper" >
+  <resultMap id="BaseResultMap" type="com.chillax.bean.OrderWorker" >
+    <result column="o_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="w_id" property="workerId" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.chillax.bean.OrderWorker" >
+    insert into order_worker (o_id, w_id)
+    values (#{orderId,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chillax.bean.OrderWorker" >
+    insert into order_worker
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        o_id,
+      </if>
+      <if test="workerId != null" >
+        w_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectByOrderId"  resultType="map">
+  	select * from v_orderworker where o_id=#{orderId}
+  </select>
+</mapper>
